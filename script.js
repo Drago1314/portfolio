@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initCounters();
     initContactForm();
     initSmoothScroll();
+    initTheme();
+    initVanillaTilt();
+    initHeroParallax();
 });
 
 // ===============================
@@ -297,5 +300,109 @@ function initSmoothScroll() {
                 });
             }
         });
+    });
+}
+
+// ===============================
+// Theme Toggle Logic
+// ===============================
+function initTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (!themeToggle) return;
+
+    // Check for saved theme
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Check system preference if no saved theme
+    if (!savedTheme) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            document.body.classList.add('light-theme');
+        }
+    } else if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+        
+        // Save preference
+        if (document.body.classList.contains('light-theme')) {
+            localStorage.setItem('theme', 'light');
+        } else {
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+}
+
+// ===============================
+// Vanilla 3D Tilt Effect
+// ===============================
+function initVanillaTilt() {
+    const tiltElements = document.querySelectorAll('[data-tilt]');
+    
+    // Only apply on non-touch devices
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    tiltElements.forEach(el => {
+        el.addEventListener('mousemove', handleTilt);
+        el.addEventListener('mouseleave', resetTilt);
+        
+        // Ensure parent has perspective setup properly via CSS or inject here
+        el.style.transformStyle = "preserve-3d";
+        el.style.transition = "transform 0.1s ease";
+    });
+
+    function handleTilt(e) {
+        const card = this;
+        const rect = card.getBoundingClientRect();
+        
+        const x = e.clientX - rect.left; // x position within the element
+        const y = e.clientY - rect.top; // y position within the element
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -10; // Max rotation 10deg
+        const rotateY = ((x - centerX) / centerX) * 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    }
+
+    function resetTilt(e) {
+        const card = this;
+        card.style.transition = "transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)";
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        
+        setTimeout(() => {
+            if (card) {
+                card.style.transition = "transform 0.1s ease";
+            }
+        }, 500);
+    }
+}
+
+// ===============================
+// Hero Parallax Interaction
+// ===============================
+function initHeroParallax() {
+    const heroSection = document.getElementById('home');
+    const heroVisual = document.querySelector('.hero-visual');
+    if (!heroSection || !heroVisual || window.matchMedia('(max-width: 768px)').matches) return;
+
+    document.addEventListener('mousemove', (e) => {
+        // Only run if hero is still visible
+        const heroRect = heroSection.getBoundingClientRect();
+        if (heroRect.bottom < 0) return;
+
+        const x = (window.innerWidth / 2 - e.clientX) / 50;
+        const y = (window.innerHeight / 2 - e.clientY) / 50;
+
+        heroVisual.style.transform = `translateY(-50%) translate(${x}px, ${y}px)`;
+        
+        // Add subtle rotation to core
+        const core = heroVisual.querySelector('.hero-core');
+        if (core) {
+            core.style.transform = `translate(-50%, -50%) rotate(${x * 2}deg) scale(1.05)`;
+        }
     });
 }

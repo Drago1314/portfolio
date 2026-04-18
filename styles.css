@@ -6,6 +6,7 @@
     --bg-primary: #050508;
     --bg-secondary: #0a0a10;
     --bg-tertiary: #12121c;
+    --bg-nav: rgba(10, 10, 15, 0.85);
     /* Richer Glassmorphism */
     --bg-card: rgba(20, 20, 30, 0.4);
     --bg-card-hover: rgba(35, 35, 55, 0.6);
@@ -51,6 +52,44 @@
     --radius-md: 12px;
     --radius-lg: 20px;
     --radius-xl: 28px;
+}
+
+/* ===============================
+   Light Theme Overrides
+   =============================== */
+body.light-theme {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --bg-nav: rgba(255, 255, 255, 0.85);
+    
+    --bg-card: rgba(255, 255, 255, 0.7);
+    --bg-card-hover: rgba(255, 255, 255, 0.9);
+    --bg-glass: rgba(255, 255, 255, 0.5);
+    --bg-glass-hover: rgba(255, 255, 255, 0.8);
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+
+    /* Keep vibrant accents or adjust slightly for contrast */
+    --accent-primary: #7c3aed;
+    --accent-secondary: #c026d3;
+    --accent-tertiary: #0284c7;
+    --accent-glow: rgba(124, 58, 237, 0.2);
+
+    --gradient-primary: linear-gradient(135deg, #7c3aed, #c026d3, #0284c7);
+    --gradient-secondary: linear-gradient(135deg, #7c3aed, #e11d48);
+    --gradient-text: linear-gradient(135deg, #c026d3, #0284c7);
+    --gradient-card: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(2, 132, 199, 0.05));
+
+    --border-color: rgba(0, 0, 0, 0.08);
+    --border-active: rgba(124, 58, 237, 0.4);
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 16px 64px rgba(0, 0, 0, 0.12);
+    --shadow-glow: 0 0 40px rgba(124, 58, 237, 0.1);
 }
 
 /* ===============================
@@ -154,7 +193,7 @@ img {
 
 .navbar.scrolled {
     padding: 12px 0;
-    background: rgba(10, 10, 15, 0.85);
+    background: var(--bg-nav);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
@@ -251,6 +290,63 @@ img {
 .nav-toggle.active .hamburger::after {
     transform: rotate(-45deg);
     bottom: 0;
+}
+
+/* Theme Toggle Button */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.theme-toggle {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    background: var(--bg-glass-hover);
+    border-color: var(--border-active);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle svg {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transition: all var(--transition-medium);
+}
+
+.theme-toggle .sun-icon {
+    transform: translateY(30px);
+    opacity: 0;
+}
+
+.theme-toggle .moon-icon {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+body.light-theme .theme-toggle .sun-icon {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+body.light-theme .theme-toggle .moon-icon {
+    transform: translateY(-30px);
+    opacity: 0;
 }
 
 /* ===============================
@@ -508,6 +604,30 @@ img {
             0 0 60px rgba(14, 165, 233, 0.6),
             inset 0 0 45px rgba(0, 0, 0, 1),
             inset 0 0 15px rgba(14, 165, 233, 0.8);
+        border-color: rgba(14, 165, 233, 0.7);
+        transform: translate(-50%, -50%) scale(1.02);
+    }
+}
+
+body.light-theme .hero-core {
+    background: radial-gradient(circle, #ffffff 0%, #f1f5f9 60%, rgba(14, 165, 233, 0.1) 100%);
+    animation: eventHorizonPulseLight 4s ease-in-out infinite alternate;
+}
+
+@keyframes eventHorizonPulseLight {
+    0% {
+        box-shadow: 
+            0 0 30px rgba(139, 92, 246, 0.3),
+            inset 0 0 30px rgba(255, 255, 255, 1),
+            inset 0 0 10px rgba(139, 92, 246, 0.5);
+        border-color: rgba(139, 92, 246, 0.4);
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        box-shadow: 
+            0 0 60px rgba(14, 165, 233, 0.5),
+            inset 0 0 45px rgba(255, 255, 255, 1),
+            inset 0 0 15px rgba(14, 165, 233, 0.7);
         border-color: rgba(14, 165, 233, 0.7);
         transform: translate(-50%, -50%) scale(1.02);
     }
