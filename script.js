@@ -28,7 +28,7 @@ function initParticles() {
     for (let i = 0; i < count; i++) {
         const particle = document.createElement('div');
         particle.classList.add('particle');
-        const size = Math.random() * 8 + 4;
+        const size = Math.random() * 6 + 3;
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
         particle.style.left = `${Math.random() * 100}%`;
