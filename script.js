@@ -256,13 +256,13 @@ function initContactForm() {
     if (!form) return;
 
     form.addEventListener('submit', (e) => {
-        e.preventDefault();
+        // e.preventDefault(); // Removed to allow mailto action
 
         const submitBtn = document.getElementById('submitBtn');
         const originalContent = submitBtn.innerHTML;
 
         // Show sending state
-        submitBtn.innerHTML = '<span>Sending...</span>';
+        submitBtn.innerHTML = '<span>Opening Mail Client...</span>';
         submitBtn.disabled = true;
         submitBtn.style.opacity = '0.7';
 
