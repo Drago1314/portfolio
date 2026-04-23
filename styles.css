@@ -113,12 +113,13 @@ body {
     line-height: 1.7;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    cursor: url('images/cursor.svg') 2 1, auto;
+    cursor: url('images/cursor.svg') 1 0, auto;
 }
 
 a, button, .btn, .nav-toggle, .theme-toggle, .nav-link,
-.project-link, .social-link, input[type="submit"] {
-    cursor: url('images/cursor-pointer.svg') 2 1, pointer;
+.project-link, .social-link, input[type="submit"],
+.project-card, .skill-card, .scroll-top, select, label[for] {
+    cursor: url('images/cursor-pointer.svg') 1 0, pointer !important;
 }
 
 ::selection {
@@ -166,10 +167,10 @@ img {
 }
 
 @keyframes floatParticle {
-    0% { transform: rotate(0deg); opacity: 0; }
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
     10% { opacity: 0.3; }
     90% { opacity: 0.3; }
-    100% { transform: rotate(720deg); opacity: 0; }
+    100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
 }
 
 /* Cursor Glow */

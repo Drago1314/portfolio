@@ -24,35 +24,46 @@ document.addEventListener('DOMContentLoaded', () => {
 function initParticles() {
     const container = document.getElementById('bgParticles');
     if (!container) return;
-    const count = 30;
-    const particles = [];
 
-    for (let i = 0; i < count; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        const size = Math.random() * 6 + 3;
-        const speedFactor = Math.random() * 0.5 + 0.2; // Speed multiplier for parallax
-        
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`; // Random start position
-        particle.style.animationDuration = `${Math.random() * 20 + 15}s`;
-        particle.style.animationDelay = `${Math.random() * 15}s`;
-        
-        const colors = ['#7c3aed', '#a855f7', '#06b6d4', '#ec4899'];
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        
-        container.appendChild(particle);
-        particles.push({ element: particle, speed: speedFactor });
+    const layerSpeeds = [0.1, 0.25, 0.45];
+    const perLayer = 10;
+    const layers = [];
+
+    for (let l = 0; l < layerSpeeds.length; l++) {
+        const layer = document.createElement('div');
+        layer.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;';
+
+        for (let i = 0; i < perLayer; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            const size = Math.random() * 6 + 3;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+            p.style.left = `${Math.random() * 100}%`;
+            p.style.animationDuration = `${Math.random() * 20 + 15}s`;
+            p.style.animationDelay = `${Math.random() * 15}s`;
+            const colors = ['#7c3aed', '#a855f7', '#06b6d4', '#ec4899'];
+            p.style.background = colors[Math.floor(Math.random() * colors.length)];
+            layer.appendChild(p);
+        }
+
+        container.appendChild(layer);
+        layers.push({ el: layer, speed: layerSpeeds[l] });
     }
 
-    // Parallax Scroll Effect
+    // Parallax scroll — moves layers, not particles
+    let ticking = false;
     window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        particles.forEach(p => {
-            p.element.style.transform = `translateY(${scrolled * p.speed}px)`;
-        });
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const y = window.scrollY;
+                layers.forEach(l => {
+                    l.el.style.transform = `translateY(${y * l.speed}px)`;
+                });
+                ticking = false;
+            });
+            ticking = true;
+        }
     });
 }
 
