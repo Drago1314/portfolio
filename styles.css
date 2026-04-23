@@ -113,6 +113,12 @@ body {
     line-height: 1.7;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    cursor: url('images/cursor.svg') 12 12, crosshair;
+}
+
+a, button, .btn, .nav-toggle, .theme-toggle, .nav-link,
+.project-link, .social-link, input[type="submit"] {
+    cursor: url('images/cursor-pointer.svg') 12 12, pointer;
 }
 
 ::selection {
@@ -154,7 +160,7 @@ img {
     position: absolute;
     border-radius: 50%;
     background: var(--accent-primary);
-    opacity: 0.3;
+    opacity: 0;
     animation: floatParticle linear infinite;
     box-shadow: 0 0 6px currentColor; /* Subtle soft glow */
 }
@@ -270,6 +276,7 @@ img {
 .hamburger::after {
     content: '';
     position: absolute;
+    left: 0;
     width: 24px;
     height: 2px;
     background: var(--text-primary);
