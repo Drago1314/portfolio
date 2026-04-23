@@ -113,12 +113,12 @@ body {
     line-height: 1.7;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    cursor: url('images/cursor.svg') 12 12, crosshair;
+    cursor: url('images/cursor.svg') 2 1, auto;
 }
 
 a, button, .btn, .nav-toggle, .theme-toggle, .nav-link,
 .project-link, .social-link, input[type="submit"] {
-    cursor: url('images/cursor-pointer.svg') 12 12, pointer;
+    cursor: url('images/cursor-pointer.svg') 2 1, pointer;
 }
 
 ::selection {
