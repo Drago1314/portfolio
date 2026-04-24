@@ -657,10 +657,10 @@ body.light-theme .hero-core {
     animation: floatCode 6s ease-in-out infinite;
 }
 
-.code-float-1 { top: 15%; left: 10%; animation-delay: 0s; }
-.code-float-2 { top: 70%; left: 5%; animation-delay: 1.5s; }
-.code-float-3 { top: 25%; right: 5%; animation-delay: 3s; }
-.code-float-4 { bottom: 15%; right: 15%; animation-delay: 4.5s; }
+.code-float-1 { top: 30%; left: 25%; animation-delay: 0s; }
+.code-float-2 { top: 65%; left: 20%; animation-delay: 1.5s; }
+.code-float-3 { top: 35%; right: 20%; animation-delay: 3s; }
+.code-float-4 { bottom: 30%; right: 25%; animation-delay: 4.5s; }
 
 @keyframes floatCode {
     0%, 100% { transform: translateY(0) rotate(0deg); }
